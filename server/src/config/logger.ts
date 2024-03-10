@@ -1,6 +1,8 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { createLogger, format, transports } from "winston";
 import { Logger } from "../models/logger.types";
+import { TYPES } from "../models/container.types";
+import { MockLoggerServiceImpl } from "../services/loggerService";
 
 @injectable()
 export class LoggerImpl implements Logger {
@@ -23,6 +25,16 @@ export class LoggerImpl implements Logger {
       new transports.File({ filename: "combined.log" }),
     ],
   });
+
+  constructor(
+    @inject(TYPES.LoggerService) private loggerService: MockLoggerServiceImpl
+  ) {
+    this.setupLogger();
+  }
+
+  private async setupLogger(): Promise<void> {
+    Promise.resolve("Hello world");
+  }
 
   info(message: string): void {
     this.logger.info(message);

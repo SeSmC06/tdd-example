@@ -70,9 +70,13 @@ Remember to review and refine the implementation based on feedback and requireme
 ## steps to iteratively build
 
 - [x] scaffold
-- [x] add logger, done with winston logger.config
-- [] establish one connection to upstream
+  - [x] add logger, done with winston logger.config
+  - [ ] inversify
+    - [ ] set up jest correct, currently need beforeEach to get all the binding
+    - [ ] proper place for import "reflect-metadata"
+    - [ ] investigate if possible to create multiple containers, current one container gets messy
 - [] mock the upstream
+- [] establish one connection to upstream
 - [] expose one graphql query via resolver
 - [] create mock class builder
 

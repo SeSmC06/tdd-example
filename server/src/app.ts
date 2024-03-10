@@ -1,11 +1,25 @@
-import express from "express";
-import container from "./config/container";
+import express, { Application } from "express";
 import { TYPES } from "./models/container.types";
 import { Logger } from "./models/logger.types";
+import { inject, injectable } from "inversify";
 
-export const app = express();
-app.get("/", (req: express.Request, res: express.Response) => {
-  const logger = container.get<Logger>(TYPES.Logger);
-  logger.info("Received a request on the root route");
-  res.sendStatus(200);
-});
+@injectable()
+export class App {
+  private app: Application;
+
+  constructor(@inject(TYPES.Logger) private logger: Logger) {
+    this.app = express();
+    this.setupRoute();
+  }
+
+  private setupRoute(): void {
+    this.app.get("/", (req, res) => {
+      this.logger.info("Received a request on the root route");
+      res.sendStatus(200);
+    });
+  }
+
+  public getApp(): Application {
+    return this.app;
+  }
+}
