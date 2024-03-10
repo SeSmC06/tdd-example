@@ -1,1 +1,3 @@
-export const TYPES = {};
+export const TYPES = {
+  Logger: Symbol("@Logger"),
+};

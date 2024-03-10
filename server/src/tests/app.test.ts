@@ -1,6 +1,5 @@
 import request from "supertest";
-import { app } from "../src/app";
-import { describe } from "node:test";
+import { app } from "../app";
 
 describe("Express App", () => {
   it("should respond with 200 on the root route ", async () => {

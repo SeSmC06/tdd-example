@@ -9,8 +9,9 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+combined.log
+error.log
 
-steps.md
 # Caches
 
 .cache
