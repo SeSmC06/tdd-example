@@ -1,14 +1,17 @@
-interface UserDetail {
+export interface UserDetail {
+  /**
+   * jsdoc for url
+   */
   avatarUrl: string;
 }
 
 /**
  * sample tsdoc
  */
-interface ProfileData {
+export interface ProfileData {
   id: string;
   name: string;
   email: string;
 }
 
-interface UserProfile extends UserDetail, ProfileData {}
+export interface UserProfile extends UserDetail, ProfileData {}

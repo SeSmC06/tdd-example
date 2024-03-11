@@ -1,5 +1,9 @@
 export const TYPES = {
-  App: Symbol("@App"),
-  Logger: Symbol("@Logger"),
-  LoggerService: Symbol("@LoggerService"),
+  App: Symbol.for("@App"),
+  Logger: Symbol.for("@Logger"),
+  LoggerService: Symbol.for("@LoggerService"),
+  UserService: Symbol.for("@UserService"),
+  ProfileService: Symbol.for("@ProfileService"),
+  UserRepository: Symbol.for("@UserRepository"),
+  UserController: Symbol.for("@UserController"),
 };

@@ -75,6 +75,14 @@ Remember to review and refine the implementation based on feedback and requireme
     - [ ] set up jest correct, currently need beforeEach to get all the binding
     - [ ] proper place for import "reflect-metadata"
     - [ ] investigate if possible to create multiple containers, current one container gets messy
+- [ ] Error handling for different scenarios see [Error Handling](#error-handling)
+  - [ ] controller
+  - [ ] repository
+  - [ ] service
+- [ ] Mocking different handlers
+  - [ ] controller
+  - [ ] repository
+  - [ ] service
 - [] mock the upstream
 - [] establish one connection to upstream
 - [] expose one graphql query via resolver
@@ -85,3 +93,50 @@ Remember to review and refine the implementation based on feedback and requireme
 - [] generate schema
 - [] integrate with zod
 - [] testing generated schema
+
+## Error handling
+
+### Centralized Error Handling Middleware
+
+Create a centralized error handling middleware in your application that catches and handles errors from all layers.
+This middleware can be placed at the top level of your application, such as in the app.ts file.
+It should catch any unhandled errors thrown by the controllers, services, or repositories.
+The middleware can log the errors, format them appropriately, and send a consistent error response to the client.
+This approach provides a single point of error handling and ensures consistent error responses across the application.
+
+### Error Handling in Controllers
+
+Implement error handling logic within each controller method.
+Use try-catch blocks to catch any errors thrown by the services or repositories.
+If an error occurs, log the error and send an appropriate error response to the client.
+This approach allows for more granular error handling specific to each controller method.
+However, it can lead to duplicated error handling code across controllers.
+
+### Error Handling in Services and Repositories
+
+Implement error handling within the service and repository layers.
+Use try-catch blocks to catch any errors that occur during service or repository operations.
+If an error occurs, log the error and throw a custom error or a more specific error type.
+The custom errors can include additional metadata or error codes to help identify the nature of the error.
+The controllers can then catch these custom errors and handle them appropriately.
+
+### Error Handling with Promises and Async/Await
+
+Utilize the error handling mechanisms provided by Promises and async/await.
+In async functions, use try-catch blocks to catch any errors that occur within the function.
+If an error occurs, log the error and throw a custom error or reject the promise with an appropriate error.
+The calling code (e.g., controllers) can then catch and handle the errors using .catch() or try-catch blocks.
+
+### Logging and Monitoring
+
+Implement comprehensive logging throughout your application, including error logging.
+Use a logging library or framework to log errors, along with relevant contextual information.
+Integrate with a centralized logging system or error monitoring service to track and analyze errors in real-time.
+This approach helps in identifying and diagnosing issues, and provides valuable insights for debugging and troubleshooting.
+
+### Graceful Error Handling and Fallback Mechanisms
+
+Design your application to handle errors gracefully and provide fallback mechanisms when possible.
+For example, if a service or repository operation fails, consider returning default values or cached data to maintain a functional user experience.
+Implement circuit breakers or retry mechanisms to handle temporary failures or network issues.
+Provide meaningful error messages to the client, indicating the nature of the error and possible actions to take.
