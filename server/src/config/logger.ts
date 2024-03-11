@@ -33,6 +33,9 @@ export class LoggerImpl implements Logger {
   }
 
   private async setupLogger(): Promise<void> {
+    /**
+     * use loggerService to grab the configuration token and logger.add to send
+     */
     Promise.resolve("Hello world");
   }
 
