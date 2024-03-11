@@ -6,4 +6,5 @@ export const TYPES = {
   ProfileService: Symbol.for("@ProfileService"),
   UserRepository: Symbol.for("@UserRepository"),
   UserController: Symbol.for("@UserController"),
+  UserResolver: Symbol.for("@UserResolver"),
 };
