@@ -1,18 +1,31 @@
-import express, { Application } from "express";
+import express, { Application, Request } from "express";
 import { TYPES } from "./models/container.types";
 import { Logger } from "./models/logger.types";
 import { inject, injectable } from "inversify";
 import { UserControllerImpl } from "./controllers/userController";
+import { ApolloServer } from "apollo-server-express";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { userTypeDefs } from "./graphql/schema";
+import { UserResolverImpl } from "./resolvers/userResolver";
 
 @injectable()
 export class App {
   private app: Application;
+  private apolloServer: ApolloServer;
 
   constructor(
     @inject(TYPES.Logger) private logger: Logger,
-    @inject(TYPES.UserController) private userController: UserControllerImpl
+    @inject(TYPES.UserController) private userController: UserControllerImpl,
+    @inject(TYPES.UserResolver) private userResolver: UserResolverImpl
   ) {
     this.app = express();
+    const schema = makeExecutableSchema({
+      typeDefs: [userTypeDefs],
+      resolvers: this.userResolver.resolvers,
+    });
+    this.apolloServer = new ApolloServer({
+      schema,
+    });
     this.setupRoute();
   }
 
@@ -24,6 +37,11 @@ export class App {
     this.app.get("/users/:userId/profile", (req, res) =>
       this.userController.getUserProfile(req, res)
     );
+  }
+
+  public async startApolloServer(): Promise<void> {
+    await this.apolloServer.start();
+    this.apolloServer.applyMiddleware({ app: this.app });
   }
 
   public getApp(): Application {

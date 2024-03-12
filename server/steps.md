@@ -79,6 +79,7 @@ Remember to review and refine the implementation based on feedback and requireme
   - [ ] controller
   - [ ] repository
   - [ ] service
+  - [ ] resolver if graphql
 - [ ] Mocking different handlers
   - [ ] controller
   - [ ] repository
@@ -86,6 +87,9 @@ Remember to review and refine the implementation based on feedback and requireme
 - [] mock the upstream
 - [] establish one connection to upstream
 - [] expose one graphql query via resolver
+  - [] schema definition
+  - [] resolver definition
+  - [] apollo v3 or v4
 - [] create mock class builder
 
 ### graphql build
