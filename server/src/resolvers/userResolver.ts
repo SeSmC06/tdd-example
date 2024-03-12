@@ -7,7 +7,9 @@ export class UserResolverImpl {
   constructor(
     @inject(TYPES.UserRepository) private userRepository: UserRepository
   ) {}
-
+  /**
+   * IResolvers will need to be replaced by generated types
+   */
   public resolvers: IResolvers = {
     Query: {
       userProfile: async (

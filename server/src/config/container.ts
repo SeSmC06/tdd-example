@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import "reflect-metadata";
+
 import { LoggerImpl } from "./logger";
 import { TYPES } from "../models/container.types";
 import { Logger } from "../models/logger.types";

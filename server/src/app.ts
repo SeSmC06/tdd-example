@@ -23,8 +23,10 @@ export class App {
       typeDefs: [userTypeDefs],
       resolvers: this.userResolver.resolvers,
     });
+    this.apolloServer = new ApolloServer({
+      schema,
+    });
     this.setupRoute();
-    this.apolloServer = new ApolloServer({ schema });
   }
 
   private setupRoute(): void {
@@ -37,15 +39,9 @@ export class App {
     );
   }
 
-  public async start(): Promise<void> {
+  public async startApolloServer(): Promise<void> {
     await this.apolloServer.start();
     this.apolloServer.applyMiddleware({ app: this.app });
-    //   this.app.use(
-    //     "/graphql",
-    //     expressMiddleware(this.apolloServer, {
-    //       context: async(({ req }) => ({ req })),
-    //     })
-    //   );
   }
 
   public getApp(): Application {
